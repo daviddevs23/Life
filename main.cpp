@@ -1,26 +1,12 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <string>
 
+#include "graphics.hpp"
 #include "map.hpp"
 
-void draw(sf::RenderWindow* window, int** board, int width, int height) {
-    sf::Image* background = new sf::Image();
-    background->create(width, height, sf::Color(0, 0, 255));
-
-    for (int x = 0; x < width; x++) {
-        for (int y = 0; y < height; y++) {
-            int colorTMP = board[x][y];
-            background->setPixel(x, y, sf::Color(colorTMP, colorTMP, colorTMP));
-        }
-    }
-
-    sf::Texture backgroundTexture;
-    backgroundTexture.update(*background);
-    sf::Sprite backgroundSprite;
-    backgroundSprite.setTexture(backgroundTexture);
-    backgroundSprite.setPosition(sf::Vector2f(100,100));
-    window->draw(backgroundSprite);
-}
+// TODO: Commenct code more
+// TODO: Check for return values more effectively
 
 int main() {
     int width = 2000;
@@ -28,24 +14,21 @@ int main() {
     int desktopWdith = sf::VideoMode::getDesktopMode().width;
     int desktopHeight = sf::VideoMode::getDesktopMode().height;
 
-    sf::RenderWindow window(sf::VideoMode(width, height), "Life");
-
     Map* gameBoard = new Map(width, height);
     gameBoard->genMap();
-
     int** tmp = gameBoard->getMap();
 
-    while (window.isOpen()) {
+    Graphics* displayEngine = new Graphics(width, height, "Life");
+    displayEngine->setBackground(tmp, width, height);
+
+
+    while (displayEngine->getWindow()->isOpen()) {
         sf::Event event;
-        while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed) window.close();
+        while (displayEngine->getWindow()->pollEvent(event)) {
+            if (event.type == sf::Event::Closed)
+                displayEngine->getWindow()->close();
         }
-
-        window.clear();
-
-        draw(&window, tmp, width, height);
-
-        window.display();
+        displayEngine->updateDisplay();
     }
 
     return 0;
