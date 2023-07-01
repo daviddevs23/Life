@@ -3,42 +3,28 @@
 
 #include "map.hpp"
 
-void draw(sf::RenderWindow window,int** board) {
-    ;
+void draw(sf::RenderWindow* window, int** board, int width, int height) {
+    sf::Image* background = new sf::Image();
+    background->create(width, height, sf::Color(0, 0, 255));
+
+    for (int x = 0; x < width; x++) {
+        for (int y = 0; y < height; y++) {
+            int colorTMP = board[x][y];
+            background->setPixel(x, y, sf::Color(colorTMP, colorTMP, colorTMP));
+        }
+    }
+
+    sf::Texture backgroundTexture;
+    backgroundTexture.update(*background);
+    sf::Sprite backgroundSprite;
+    backgroundSprite.setTexture(backgroundTexture);
+    backgroundSprite.setPosition(sf::Vector2f(100,100));
+    window->draw(backgroundSprite);
 }
 
 int main() {
-    // sf::RectangleShape shape(sf::Vector2f(100, 100));
-    // shape.setFillColor(sf::Color(255, 255, 255));
-
-    // sf::RectangleShape board[8][8];
-
-    // while (window.isOpen()) {
-    //     sf::Event event;
-    //     while (window.pollEvent(event)) {
-    //         if (event.type == sf::Event::Closed) window.close();
-    //     }
-
-    //     window.clear();
-
-    //     for (int x = 0; x < 8; x++) {
-    //         for (int y = 0; y < 8; y++) {
-    //             board[x][y] = sf::RectangleShape(sf::Vector2f(100, 100));
-    //             if ((x + y) % 2 == 0) {
-    //                 board[x][y].setFillColor(black);
-    //             } else {
-    //                 board[x][y].setFillColor(white);
-    //             }
-    //             board[x][y].setPosition(x * 100, y * 100);
-    //             window.draw(board[x][y]);
-    //         }
-    //     }
-
-    //     window.display();
-    // }
-
-    int width = 200;
-    int height = 100;
+    int width = 2000;
+    int height = 1000;
     int desktopWdith = sf::VideoMode::getDesktopMode().width;
     int desktopHeight = sf::VideoMode::getDesktopMode().height;
 
@@ -48,6 +34,19 @@ int main() {
     gameBoard->genMap();
 
     int** tmp = gameBoard->getMap();
+
+    while (window.isOpen()) {
+        sf::Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed) window.close();
+        }
+
+        window.clear();
+
+        draw(&window, tmp, width, height);
+
+        window.display();
+    }
 
     return 0;
 }
