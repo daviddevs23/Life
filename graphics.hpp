@@ -10,6 +10,8 @@ class Graphics {
     int windowWidth;
     int windowHeight;
     sf::RenderWindow* window;
+    sf::Image backgroundImage;
+    sf::Texture backgroundTexture;
     sf::Sprite background;
 
    public:

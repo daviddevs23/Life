@@ -1,5 +1,7 @@
 #include "graphics.hpp"
 
+#include <iostream>
+
 Graphics::Graphics(int width, int height, std::string name) {
     this->windowWidth = width;
     this->windowHeight = height;
@@ -7,23 +9,21 @@ Graphics::Graphics(int width, int height, std::string name) {
 }
 
 bool Graphics::setBackground(int** board, int width, int height) {
-    sf::Image* background = new sf::Image();
-    background->create(width, height, sf::Color(235, 52, 219));
+    this->backgroundImage.create(width, height, sf::Color(235, 52, 219));
 
     for (int x = 0; x < width; x++) {
         for (int y = 0; y < height; y++) {
             int colorTmp = board[x][y];
-            background->setPixel(x, y, sf::Color(colorTmp, colorTmp, colorTmp));
+            this->backgroundImage.setPixel(x, y, sf::Color(colorTmp, colorTmp, colorTmp));
         }
     }
 
-    sf::Texture backgroundTexture;
-    backgroundTexture.create(width, height);
-    backgroundTexture.update(*background);
-    sf::Sprite backgroundSprite;
-    backgroundSprite.setTexture(backgroundTexture);
-    backgroundSprite.setPosition(sf::Vector2f(0, 0));
-    this->background = backgroundSprite;
+    this->backgroundTexture.create(width, height);
+    this->backgroundTexture.update(this->backgroundImage);
+
+    this->background.setTexture(this->backgroundTexture);
+    this->background.setPosition(sf::Vector2f(0, 0));
+
     return true;
 }
 bool Graphics::drawBackground() {
