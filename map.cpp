@@ -7,6 +7,7 @@ int Map::getWidth() { return this->width; }
 int Map::getHeight() { return this->height; }
 int** Map::getMap() { return this->map; }
 
+// TODO: Implement Perlin Noise for map generation
 bool Map::genMap() {
     if (this->height < 1 || this->width < 1) {
         std::cout << "Please reinitialize map with a valid width and height "

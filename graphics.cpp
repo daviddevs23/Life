@@ -8,6 +8,7 @@ Graphics::Graphics(int width, int height, std::string name) {
     this->window = new sf::RenderWindow(sf::VideoMode(width, height), name);
 }
 
+// TODO: Change colors depending on terrain type
 bool Graphics::setBackground(int** board, int width, int height) {
     this->backgroundImage.create(width, height, sf::Color(235, 52, 219));
 
