@@ -7,10 +7,11 @@
 
 // TODO: Commenct code more
 // TODO: Check for return values more effectively
+// TODO: GDB to remove memory leaks
 
 int main() {
-    int width = 2000;
-    int height = 1000;
+    int width = 1024;
+    int height = 1024;
     int desktopWdith = sf::VideoMode::getDesktopMode().width;
     int desktopHeight = sf::VideoMode::getDesktopMode().height;
 
