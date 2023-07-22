@@ -15,8 +15,15 @@ bool Graphics::setBackground(int** board, int width, int height) {
     for (int x = 0; x < width; x++) {
         for (int y = 0; y < height; y++) {
             int colorTmp = board[x][y];
-            this->backgroundImage.setPixel(
-                x, y, sf::Color(colorTmp, colorTmp, colorTmp));
+            if (colorTmp > 200) {
+                this->backgroundImage.setPixel(x, y, sf::Color(91, 118, 217));
+            } else if (colorTmp > 170) {
+                this->backgroundImage.setPixel(x, y, sf::Color(199, 197, 131));
+            } else if (colorTmp > 100) {
+                this->backgroundImage.setPixel(x, y, sf::Color(38, 110, 37));
+            } else {
+                this->backgroundImage.setPixel(x, y, sf::Color(143, 141, 136));
+            }
         }
     }
 
